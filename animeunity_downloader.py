@@ -57,10 +57,6 @@ def main():
 
     episodes = json.loads(items[0]["episodes"])
 
-    # write data to file
-    with open("episodes.json", "w") as f:
-        f.write(json.dumps(episodes, indent=4, sort_keys=True))
-
     for episode in tqdm(episodes, position=0):
         file_name = episode["file_name"]
         link = episode["link"]
