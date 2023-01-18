@@ -59,8 +59,11 @@ def main():
 
     for episode in tqdm(episodes, position=0):
         file_name = episode["file_name"]
+
+        if Path(folder).joinpath(file_name).exists():
+            continue
+
         link = episode["link"]
-        # download video
         r = requests.get(link, stream=True)
         with open(f"{folder}/{file_name}", "wb") as f:
             for chunk in tqdm(
