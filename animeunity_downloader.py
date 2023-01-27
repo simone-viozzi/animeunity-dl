@@ -75,7 +75,7 @@ def main():
         exit(0)
 
     anime = json.loads(items[0]["anime"])
-    title_eng = anime["title_eng"]
+    title_eng = anime["title_eng"].replace("(ITA)", "").strip()
 
     folder = (Path(output) / title_eng / f"Season {season}").resolve().absolute()
     folder.mkdir(parents=True, exist_ok=True)
