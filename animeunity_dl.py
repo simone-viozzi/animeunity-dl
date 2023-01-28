@@ -10,6 +10,7 @@ from pathlib import Path
 from tqdm import tqdm
 import re
 
+
 def parse_args():
 
     parser = argparse.ArgumentParser(description="AnimeUnity downloader")
@@ -71,22 +72,21 @@ def parse_args():
     if not os.path.exists(args.output):
         print("[-] Output folder does not exist")
         sys.exit(0)
-    
+
     if not os.path.isdir(args.output):
         print("[-] Output is not a folder")
         sys.exit(0)
 
     if args.type in ["f", "film"]:
         args.type = "film"
-    
+
     if args.type in ["a", "anime"]:
         args.type = "anime"
 
     # episodes must me in the format "<10" or ">10" or "< 20"
-    if args.episodes != "all":
-        if not re.match(r"(<|>)\s?\d+", args.episodes):
-            print("[-] Invalid episodes format")
-            sys.exit(0)
+    if args.episodes != "all" and not re.match(r"(<|>)\s?\d+", args.episodes):
+        print("[-] Invalid episodes format")
+        sys.exit(0)
 
     return args
 
@@ -128,15 +128,13 @@ def get_anime(video_metadata, basepath, season, episodes):
     episodes_list = json.loads(video_metadata[0]["episodes"])
 
     for episode in tqdm(episodes_list, position=0):
-        
+
         ep = episode["number"]
         if episodes != "all":
             cond = f"{ep} {episodes}"
             print(cond)
             if not eval(cond):
                 continue
-
-        print(f"episode {ep}")
 
         file_name = episode["file_name"].replace("_", " ")
         file_path = folder / file_name
@@ -177,7 +175,7 @@ def main():
     anime = json.loads(video_metadata[0]["anime"])
     title_eng = anime["title_eng"].replace("(ITA)", "").strip()
 
-    title = args.name if args.name else title_eng
+    title = args.name or title_eng
 
     basepath = (Path(args.output) / title).resolve().absolute()
 
