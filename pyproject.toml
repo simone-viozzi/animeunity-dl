@@ -1,0 +1,19 @@
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "animeunity-dl"
+authors = [{ name = "Simone Viozzi", email = "simoneviozzi97@gmail.com" }]
+description = "CLI utility to download anime from animeunity.tv"
+requires-python = ">=3.8"
+dependencies = ["tqdm", "beautifulsoup4", "requests"]
+version = "0.1.0"
+
+[project.scripts]
+animeunity-dl = "animeunity_dl:main"
