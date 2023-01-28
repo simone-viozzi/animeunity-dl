@@ -69,13 +69,14 @@ def parse_args():
 
     args = parser.parse_args()
 
-    if not os.path.exists(args.output):
-        print("[-] Output folder does not exist")
-        sys.exit(0)
-
-    if not os.path.isdir(args.output):
-        print("[-] Output is not a folder")
-        sys.exit(0)
+    if not args.output == "./anime":
+        if not os.path.exists(args.output):
+            print("[-] Output folder does not exists")
+            sys.exit(0)
+    
+        if not os.path.isdir(args.output):
+            print("[-] Output is not a folder")
+            sys.exit(0)
 
     if args.type in ["f", "film"]:
         args.type = "film"
