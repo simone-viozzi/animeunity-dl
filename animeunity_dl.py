@@ -5,7 +5,7 @@ import argparse
 import sys
 import os
 import json
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from pathlib import Path
 from tqdm import tqdm
 import re
@@ -172,6 +172,18 @@ def main():
     if len(video_metadata) < 0:
         print("[-] Cannot fetch JSON data")
         exit(0)
+
+    #debug = Path("./debug").absolute()
+    #debug.mkdir(parents=True, exist_ok=True)
+#
+    #for x in video_metadata:
+    #    keys = x.attrs.keys()
+    #    for k in keys:
+    #        j = json.loads(x[k])
+    #        with open(debug / f"{k}.json", "w") as f:
+    #            json.dump(j, f, indent=4)
+#
+    #exit()
 
     anime = json.loads(video_metadata[0]["anime"])
     title_eng = anime["title_eng"].replace("(ITA)", "").strip()
